@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>430</width>
-    <height>380</height>
+    <height>410</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,9 +24,16 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QRadioButton" name="radioBtnExpenceTr">
         <property name="text">
-         <string>Type of transaction</string>
+         <string>Expence</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioBtnIncomeTr">
+        <property name="text">
+         <string>Income</string>
         </property>
        </widget>
       </item>
@@ -71,7 +78,7 @@
        <widget class="QDateEdit" name="dateEdit">
         <property name="dateTime">
          <datetime>
-          <hour>6</hour>
+          <hour>0</hour>
           <minute>0</minute>
           <second>0</second>
           <year>2023</year>
@@ -81,7 +88,7 @@
         </property>
         <property name="maximumDateTime">
          <datetime>
-          <hour>17</hour>
+          <hour>11</hour>
           <minute>59</minute>
           <second>59</second>
           <year>2023</year>
@@ -91,17 +98,17 @@
         </property>
         <property name="minimumDateTime">
          <datetime>
-          <hour>0</hour>
+          <hour>18</hour>
           <minute>0</minute>
           <second>0</second>
           <year>2010</year>
           <month>9</month>
-          <day>13</day>
+          <day>12</day>
          </datetime>
         </property>
         <property name="maximumTime">
          <time>
-          <hour>17</hour>
+          <hour>11</hour>
           <minute>59</minute>
           <second>59</second>
          </time>

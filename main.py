@@ -105,8 +105,8 @@ class DashboardApp(QMainWindow):
         self.btnToIncomes.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
         self.btnLogOut.clicked.connect(self.log_out)
 
-        self.btnAddIncome.clicked.connect(self.add_new_income_transaction)
-        self.btnAddExpence.clicked.connect(self.add_new_expence_transaction)
+        self.btnAddIncome.clicked.connect(self.add_new_transaction)
+        self.btnAddExpence.clicked.connect(self.add_new_transaction)
 
         self.btnNewCategory.clicked.connect(self.add_new_category)
         self.btnNewCategoryIncome.clicked.connect(self.add_new_category)
@@ -116,13 +116,8 @@ class DashboardApp(QMainWindow):
         self.login_window.show()
         self.close()
 
-    def add_new_income_transaction(self):
+    def add_new_transaction(self):
         self.transaction_dialog.show()
-        self.transaction_dialog.label.setText('Income')
-
-    def add_new_expence_transaction(self):
-        self.transaction_dialog.show()
-        self.transaction_dialog.label.setText('Expence')
 
     def add_new_category(self):
         self.category_dialog = NewCategory()
@@ -135,14 +130,28 @@ class NewTransaction(QDialog):
 
         self.conn = Data()
 
-        self.update_category_list()
+        self.radioBtnExpenceTr.toggled.connect(self.update_expence_categories)
+        self.radioBtnIncomeTr.toggled.connect(self.update_income_categories)
 
-    def update_category_list(self):
+    def update_expence_categories(self):
+        self.comboBox.clear()
         with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
             user_info = file.read()
         user_id = list(user_info)
 
         results = self.conn.get_all_expence_categories(user_id[1])
+
+        for result in results:
+            item = ''.join(result)
+            self.comboBox.addItem(item)
+
+    def update_income_categories(self):
+        self.comboBox.clear()
+        with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
+            user_info = file.read()
+        user_id = list(user_info)
+
+        results = self.conn.get_all_income_categories(user_id[1])
 
         for result in results:
             item = ''.join(result)
