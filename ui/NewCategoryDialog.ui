@@ -32,7 +32,7 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(85, 255, 0);</string>
+         <string notr="true">color: rgb(68, 136, 0);</string>
         </property>
         <property name="text">
          <string/>

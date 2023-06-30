@@ -1,7 +1,7 @@
 import sys
 import PyQt5
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QMainWindow, QLineEdit, QWidget, QListWidgetItem
+from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QMainWindow, QLineEdit, QWidget, QListWidgetItem, QCalendarWidget
 from PyQt5.uic import loadUi
 
 from connection import Data
@@ -133,6 +133,8 @@ class NewTransaction(QDialog):
         self.radioBtnExpenceTr.toggled.connect(self.update_expence_categories)
         self.radioBtnIncomeTr.toggled.connect(self.update_income_categories)
 
+        self.btnSaveTransaction.clicked.connect(self.save_new_transaction)
+
     def update_expence_categories(self):
         self.comboBox.clear()
         with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
@@ -157,8 +159,29 @@ class NewTransaction(QDialog):
             item = ''.join(result)
             self.comboBox.addItem(item)
 
-    def add_new_transaction(self):
-        pass
+    def get_category_type_tr(self):
+        if self.radioBtnExpenceTr.isChecked():
+            return 'Expence'
+        if self.radioBtnIncomeTr.isChecked():
+            return 'Income'
+
+    def save_new_transaction(self):
+        type_tr = self.get_category_type_tr()
+        summ = self.txtEditSum.text()
+        comment = self.txtEditComment.text()
+        date = self.dateEdit.date().toPyDate()
+
+        with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
+            user_info = file.read()
+
+        user_id = list(user_info)
+
+        category_tittle = self.comboBox.currentText()
+        category_id = self.conn.get_category_id(category_tittle, type_tr, user_id[1])
+
+        self.conn.add_new_transaction(type_tr, summ, comment, str(date), user_id[1], category_id)
+
+        print(type_tr, summ, comment, date, user_id[1], category_id)
 
 
 class NewCategory(QDialog):

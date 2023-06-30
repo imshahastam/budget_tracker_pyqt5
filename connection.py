@@ -46,9 +46,13 @@ class Data:
             Comment TEXT,
             Date TEXT,
             User_id INTEGER,
-            Category_tittle TEXT,
+            Category_id INTEGER,
             FOREIGN KEY(User_id) REFERENCES users(Id),
-            FOREIGN KEY(Category_tittle) REFERENCES categories(Tittle))""")
+            FOREIGN KEY(Category_id) REFERENCES categories(Id))""")
+
+    def add_new_transaction(self, type_tr, summ, comment, date, user_id, category_id):
+        cursor.execute("INSERT INTO transactions (Type, Sum, Comment, Date, User_id, Category_id) VALUES(?,?,?,?,?,?)", (type_tr, summ, comment, date, user_id, category_id))
+        db.commit()
 
     def create_categories_table(self):
         cursor.execute("""CREATE TABLE IF NOT EXISTS categories (
@@ -75,5 +79,14 @@ class Data:
         db.commit()
 
         return all_expence_categories
+
+    def get_category_id(self, tittle, type_c, user_id):
+        cursor.execute("SELECT Id FROM categories WHERE Tittle=? and Type=? and User_id=?", (tittle, type_c, user_id))
+        category_info = cursor.fetchone()
+        db.commit()
+        category_list = list(category_info)
+        category_id = category_list[0]
+
+        return int(category_id)
 
 
