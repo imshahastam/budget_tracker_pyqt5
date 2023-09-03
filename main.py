@@ -103,6 +103,10 @@ class DashboardApp(QMainWindow):
 
         self.btnToExpence.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(0))
         self.btnToIncomes.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
+        self.btnTransactions.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(2))
+
+        self.load_all_transactions()
+
         self.btnLogOut.clicked.connect(self.log_out)
 
         self.btnAddIncome.clicked.connect(self.add_new_transaction)
@@ -122,6 +126,34 @@ class DashboardApp(QMainWindow):
     def add_new_category(self):
         self.category_dialog = NewCategory()
         self.category_dialog.show()
+
+    def load_all_transactions(self):
+        self.tableWidget.setColumnWidth(0, 50)
+        self.tableWidget.setColumnWidth(1, 70)
+        self.tableWidget.setColumnWidth(2, 50)
+        self.tableWidget.setColumnWidth(3, 50)
+        self.tableWidget.setColumnWidth(4, 50)
+        self.tableWidget.setColumnWidth(5, 50)
+        self.tableWidget.setColumnWidth(6, 50)
+        self.tableWidget.setHorizontalHeaderLabels(['ID', 'Type', 'Sum', 'Comment', 'Date', 'User ID', 'Category ID'])
+        with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
+            user_info = file.read()
+        user_id = list(user_info)
+
+        all_transactions_db = self.conn.get_all_transactions(user_id[1])
+
+        self.tableWidget.setRowCount(25)
+        table_row = 0
+        for row in all_transactions_db:
+            self.tableWidget.setItem(table_row, 0, QtWidgets.QTableWidgetItem(str(row[0])))
+            self.tableWidget.setItem(table_row, 1, QtWidgets.QTableWidgetItem(row[1]))
+            self.tableWidget.setItem(table_row, 2, QtWidgets.QTableWidgetItem(row[2]))
+            self.tableWidget.setItem(table_row, 3, QtWidgets.QTableWidgetItem(row[3]))
+            self.tableWidget.setItem(table_row, 4, QtWidgets.QTableWidgetItem(row[4]))
+            self.tableWidget.setItem(table_row, 5, QtWidgets.QTableWidgetItem(row[5]))
+            self.tableWidget.setItem(table_row, 6, QtWidgets.QTableWidgetItem(row[6]))
+
+            table_row += 1
 
 class NewTransaction(QDialog):
     def __init__(self):

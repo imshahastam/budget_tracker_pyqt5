@@ -54,6 +54,13 @@ class Data:
         cursor.execute("INSERT INTO transactions (Type, Sum, Comment, Date, User_id, Category_id) VALUES(?,?,?,?,?,?)", (type_tr, summ, comment, date, user_id, category_id))
         db.commit()
 
+    def get_all_transactions(self, user_id):
+        cursor.execute("SELECT * FROM transactions WHERE User_id=?", (user_id))
+        all_transactions = cursor.fetchall()
+        db.commit()
+
+        return all_transactions
+
     def create_categories_table(self):
         cursor.execute("""CREATE TABLE IF NOT EXISTS categories (
             Id INTEGER PRIMARY KEY AUTOINCREMENT,
