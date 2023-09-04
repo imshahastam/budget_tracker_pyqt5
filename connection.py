@@ -5,7 +5,7 @@ class Data:
         super(Data, self).__init__()
         global db
         global cursor
-        db = sqlite3.connect('pyqt5/budget_tracker/tracker.db')
+        db = sqlite3.connect('tracker.db')
         cursor = db.cursor()
         db.execute("PRAGMA foreign_keys = ON")
 

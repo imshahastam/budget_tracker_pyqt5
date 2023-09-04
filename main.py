@@ -9,7 +9,7 @@ from connection import Data
 class LoginApp(QMainWindow):
     def __init__(self):
         super(LoginApp, self).__init__()
-        loadUi('pyqt5/budget_tracker/ui/AuthWindow.ui', self)
+        loadUi('ui/AuthWindow.ui', self)
 
         self.show()
 
@@ -33,7 +33,7 @@ class LoginApp(QMainWindow):
         if user:
             current_user_info = self.conn.get_user_id(log_email, log_pswrd)
 
-            with open('pyqt5/budget_tracker/current_user_info.txt', 'w') as file:
+            with open('current_user_info.txt', 'w') as file:
                 file.write(str(current_user_info))
             
             self.dashboard_window.show()
@@ -48,7 +48,7 @@ class LoginApp(QMainWindow):
 class RegistrApp(QMainWindow):
     def __init__(self):
         super(RegistrApp, self).__init__()
-        loadUi('pyqt5/budget_tracker/ui/RegWindow.ui', self)
+        loadUi('ui/RegWindow.ui', self)
 
         self.conn = Data()
 
@@ -96,7 +96,7 @@ class RegistrApp(QMainWindow):
 class DashboardApp(QMainWindow):
     def __init__(self):
         super(DashboardApp, self).__init__()
-        loadUi('pyqt5/budget_tracker/ui/DashboardWindow.ui', self)
+        loadUi('ui/DashboardWindow.ui', self)
 
         self.conn = Data()
         self.transaction_dialog = NewTransaction()
@@ -104,8 +104,9 @@ class DashboardApp(QMainWindow):
         self.btnToExpence.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(0))
         self.btnToIncomes.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
         self.btnTransactions.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(2))
+        self.btnTransactions.clicked.connect(self.load_all_transactions)
 
-        self.load_all_transactions()
+        #self.load_all_transactions()
 
         self.btnLogOut.clicked.connect(self.log_out)
 
@@ -128,15 +129,18 @@ class DashboardApp(QMainWindow):
         self.category_dialog.show()
 
     def load_all_transactions(self):
+        # задаю размеры хэдеров
         self.tableWidget.setColumnWidth(0, 50)
         self.tableWidget.setColumnWidth(1, 70)
         self.tableWidget.setColumnWidth(2, 50)
-        self.tableWidget.setColumnWidth(3, 50)
-        self.tableWidget.setColumnWidth(4, 50)
+        self.tableWidget.setColumnWidth(3, 80)
+        self.tableWidget.setColumnWidth(4, 70)
         self.tableWidget.setColumnWidth(5, 50)
-        self.tableWidget.setColumnWidth(6, 50)
+        self.tableWidget.setColumnWidth(6, 90)
+
         self.tableWidget.setHorizontalHeaderLabels(['ID', 'Type', 'Sum', 'Comment', 'Date', 'User ID', 'Category ID'])
-        with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
+        
+        with open('current_user_info.txt', 'r') as file:
             user_info = file.read()
         user_id = list(user_info)
 
@@ -147,18 +151,18 @@ class DashboardApp(QMainWindow):
         for row in all_transactions_db:
             self.tableWidget.setItem(table_row, 0, QtWidgets.QTableWidgetItem(str(row[0])))
             self.tableWidget.setItem(table_row, 1, QtWidgets.QTableWidgetItem(row[1]))
-            self.tableWidget.setItem(table_row, 2, QtWidgets.QTableWidgetItem(row[2]))
+            self.tableWidget.setItem(table_row, 2, QtWidgets.QTableWidgetItem(str(row[2])))
             self.tableWidget.setItem(table_row, 3, QtWidgets.QTableWidgetItem(row[3]))
             self.tableWidget.setItem(table_row, 4, QtWidgets.QTableWidgetItem(row[4]))
-            self.tableWidget.setItem(table_row, 5, QtWidgets.QTableWidgetItem(row[5]))
-            self.tableWidget.setItem(table_row, 6, QtWidgets.QTableWidgetItem(row[6]))
+            self.tableWidget.setItem(table_row, 5, QtWidgets.QTableWidgetItem(str(row[5])))
+            self.tableWidget.setItem(table_row, 6, QtWidgets.QTableWidgetItem(str(row[6])))
 
             table_row += 1
 
 class NewTransaction(QDialog):
     def __init__(self):
         super(NewTransaction, self).__init__()
-        loadUi('pyqt5/budget_tracker/ui/NewTransactionDialog.ui', self)
+        loadUi('ui/NewTransactionDialog.ui', self)
 
         self.conn = Data()
 
@@ -169,7 +173,7 @@ class NewTransaction(QDialog):
 
     def update_expence_categories(self):
         self.comboBox.clear()
-        with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
+        with open('current_user_info.txt', 'r') as file:
             user_info = file.read()
         user_id = list(user_info)
 
@@ -181,7 +185,7 @@ class NewTransaction(QDialog):
 
     def update_income_categories(self):
         self.comboBox.clear()
-        with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
+        with open('current_user_info.txt', 'r') as file:
             user_info = file.read()
         user_id = list(user_info)
 
@@ -203,7 +207,7 @@ class NewTransaction(QDialog):
         comment = self.txtEditComment.text()
         date = self.dateEdit.date().toPyDate()
 
-        with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
+        with open('current_user_info.txt', 'r') as file:
             user_info = file.read()
 
         user_id = list(user_info)
@@ -219,7 +223,7 @@ class NewTransaction(QDialog):
 class NewCategory(QDialog):
     def __init__(self):
         super(NewCategory, self).__init__()
-        loadUi('pyqt5/budget_tracker/ui/NewCategoryDialog.ui', self)
+        loadUi('ui/NewCategoryDialog.ui', self)
 
         self.conn = Data()
 
@@ -232,7 +236,7 @@ class NewCategory(QDialog):
             return 'Income'
 
     def save_new_category(self):
-        with open('pyqt5/budget_tracker/current_user_info.txt', 'r') as file:
+        with open('current_user_info.txt', 'r') as file:
             user_info = file.read()
 
         user_id = list(user_info)
