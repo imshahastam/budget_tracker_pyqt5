@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>956</width>
-    <height>614</height>
+    <width>759</width>
+    <height>551</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,16 +60,23 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QPushButton" name="btnToExpence">
+           <widget class="QPushButton" name="btnAddTransaction">
             <property name="text">
-             <string>Expences</string>
+             <string>Add Transactions</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnToIncomes">
+           <widget class="QPushButton" name="btnNewCategory">
             <property name="text">
-             <string>Incomes</string>
+             <string>Add New Category</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnToGrafics">
+            <property name="text">
+             <string>Grafics</string>
             </property>
            </widget>
           </item>
@@ -145,63 +152,10 @@
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
-         <widget class="QWidget" name="expencePage">
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <widget class="QFrame" name="expenceFrame">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item alignment="Qt::AlignTop">
-               <widget class="QLabel" name="txtExpence">
-                <property name="text">
-                 <string>Expences</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignTop">
-               <widget class="QPushButton" name="btnAddExpence">
-                <property name="text">
-                 <string>Add Expence</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignTop">
-               <widget class="QPushButton" name="btnNewCategory">
-                <property name="text">
-                 <string>Add New Category</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QFrame" name="graficsFrame">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="incomePage">
+         <widget class="QWidget" name="GraficsPage">
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <item>
-            <widget class="QFrame" name="incomeFrame">
+            <widget class="QFrame" name="graficsFrame">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -210,23 +164,9 @@
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
               <item alignment="Qt::AlignTop">
-               <widget class="QLabel" name="txtIncome">
+               <widget class="QLabel" name="txtGrafics">
                 <property name="text">
-                 <string>Incomes</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignTop">
-               <widget class="QPushButton" name="btnAddIncome">
-                <property name="text">
-                 <string>Add Income</string>
-                </property>
-               </widget>
-              </item>
-              <item alignment="Qt::AlignTop">
-               <widget class="QPushButton" name="btnNewCategoryIncome">
-                <property name="text">
-                 <string>Add New Category</string>
+                 <string>Grafics</string>
                 </property>
                </widget>
               </item>
@@ -234,7 +174,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QFrame" name="incomeFragicsFrame">
+            <widget class="QFrame" name="GragicsFrame">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                <horstretch>0</horstretch>

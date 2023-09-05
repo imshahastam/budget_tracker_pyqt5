@@ -101,20 +101,17 @@ class DashboardApp(QMainWindow):
         self.conn = Data()
         self.transaction_dialog = NewTransaction()
 
-        self.btnToExpence.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(0))
-        self.btnToIncomes.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
-        self.btnTransactions.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(2))
+        self.btnToGrafics.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(0))
+        self.btnTransactions.clicked.connect(lambda: self.stackedWidget.setCurrentIndex(1))
         self.btnTransactions.clicked.connect(self.load_all_transactions)
 
         #self.load_all_transactions()
 
         self.btnLogOut.clicked.connect(self.log_out)
 
-        self.btnAddIncome.clicked.connect(self.add_new_transaction)
-        self.btnAddExpence.clicked.connect(self.add_new_transaction)
+        self.btnAddTransaction.clicked.connect(self.add_new_transaction)
 
         self.btnNewCategory.clicked.connect(self.add_new_category)
-        self.btnNewCategoryIncome.clicked.connect(self.add_new_category)
 
     def log_out(self):
         self.login_window = LoginApp()
@@ -219,6 +216,9 @@ class NewTransaction(QDialog):
 
         print(type_tr, summ, comment, date, user_id[1], category_id)
 
+        self.txtEditSum.setText('')
+        self.txtEditComment.setText('')
+        self.txtSaved.setText('Succesfully saved!')
 
 class NewCategory(QDialog):
     def __init__(self):

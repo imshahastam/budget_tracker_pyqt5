@@ -24,17 +24,39 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QRadioButton" name="radioBtnExpenceTr">
+       <widget class="QLabel" name="txtSaved">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(76, 152, 0);</string>
+        </property>
         <property name="text">
-         <string>Expence</string>
+         <string/>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="radioBtnIncomeTr">
-        <property name="text">
-         <string>Income</string>
+       <widget class="QFrame" name="frame_3">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QRadioButton" name="radioBtnExpenceTr">
+           <property name="text">
+            <string>Expence</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioBtnIncomeTr">
+           <property name="text">
+            <string>Income</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
@@ -78,17 +100,17 @@
        <widget class="QDateEdit" name="dateEdit">
         <property name="dateTime">
          <datetime>
-          <hour>0</hour>
+          <hour>18</hour>
           <minute>0</minute>
           <second>0</second>
           <year>2023</year>
-          <month>6</month>
-          <day>1</day>
+          <month>5</month>
+          <day>31</day>
          </datetime>
         </property>
         <property name="maximumDateTime">
          <datetime>
-          <hour>11</hour>
+          <hour>5</hour>
           <minute>59</minute>
           <second>59</second>
           <year>2023</year>
@@ -98,7 +120,7 @@
         </property>
         <property name="minimumDateTime">
          <datetime>
-          <hour>18</hour>
+          <hour>12</hour>
           <minute>0</minute>
           <second>0</second>
           <year>2010</year>
@@ -108,7 +130,7 @@
         </property>
         <property name="maximumTime">
          <time>
-          <hour>11</hour>
+          <hour>5</hour>
           <minute>59</minute>
           <second>59</second>
          </time>
