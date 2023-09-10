@@ -3,6 +3,7 @@ import PyQt5
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox, QMainWindow, QLineEdit, QWidget, QListWidgetItem, QCalendarWidget
 from PyQt5.uic import loadUi
+from PyQt5 import QtCore
 
 from connection import Data
 
@@ -156,6 +157,11 @@ class DashboardApp(QMainWindow):
 
             table_row += 1
 
+            itemAt = self.tableWidget.itemAt(1, table_row).text()
+            print('itemat', itemAt)
+            #item = self.tableWidget.item(table_row, 2).text()
+            #print(item)
+
 class NewTransaction(QDialog):
     def __init__(self):
         super(NewTransaction, self).__init__()
@@ -167,6 +173,8 @@ class NewTransaction(QDialog):
         self.radioBtnIncomeTr.toggled.connect(self.update_income_categories)
 
         self.btnSaveTransaction.clicked.connect(self.save_new_transaction)
+
+        self.timer = QtCore.QTimer()
 
     def update_expence_categories(self):
         self.comboBox.clear()
@@ -199,6 +207,9 @@ class NewTransaction(QDialog):
             return 'Income'
 
     def save_new_transaction(self):
+        self.timer_counter = 1
+        self.timer.timeout.connect(self.clear_timer)
+
         type_tr = self.get_category_type_tr()
         summ = self.txtEditSum.text()
         comment = self.txtEditComment.text()
@@ -219,6 +230,17 @@ class NewTransaction(QDialog):
         self.txtEditSum.setText('')
         self.txtEditComment.setText('')
         self.txtSaved.setText('Succesfully saved!')
+        self.timer.start(1000)
+
+    def clear_timer(self):
+        print(self.timer_counter)
+        if self.timer_counter == 3:
+            self.timer.stop()
+            print('Timer stopped')
+            self.txtSaved.setText('')
+            return
+        self.timer_counter += 1
+
 
 class NewCategory(QDialog):
     def __init__(self):
